@@ -7,6 +7,26 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
+  // Common config for all requests
+  const requestConfig = {
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  };
+
+  // Add token to headers if it exists
+  const getAuthConfig = () => {
+    const token = localStorage.getItem('access_token');
+    return {
+      ...requestConfig,
+      headers: {
+        ...requestConfig.headers,
+        Authorization: token ? `Bearer ${token}` : '',
+      }
+    };
+  };
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -16,9 +36,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log('API URL being used:', API_URL);
-
-      const response = await api.post('login/', { email, password });
+      const response = await api.post('login/', 
+        { email, password },
+        requestConfig
+      );
+      
       const { access, refresh } = response.data;
 
       localStorage.setItem('access_token', access);
@@ -39,30 +61,17 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, first_name, last_name, email, password) => {
     try {
-     const response = await api.post(
-      "register/",
-      { username, first_name, last_name, email, password },
-      {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );return {
-      success: true,
-      message: 'Registration Successful',
-    };
+      const response = await api.post(
+        "register/",
+        { username, first_name, last_name, email, password },
+        requestConfig
+      );
+      return {
+        success: true,
+        message: 'Registration Successful',
+      };
     } catch (error) {
       console.error('Registration error:', error);
-      if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
-        console.error('Response headers:', error.response.headers);
-      } else if (error.request) {
-        console.error('No response received:', error.request);
-      } else {
-        console.error('Error message:', error.message);
-      }
       return {
         success: false,
         error: error.response?.data?.message || error.message || 'Network error',
@@ -70,18 +79,24 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user');
-    setUser(null);
-
+  const logout = async () => {
+    try {
+      // If you have a logout endpoint
+      await api.post('logout/', {}, getAuthConfig());
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user');
+      setUser(null);
+    }
     return { success: true, message: 'Logout successful' };
   };
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await api.get('current-user');
+      const response = await api.get('current-user', getAuthConfig());
       setCurrentUser(response.data);
     } catch (error) {
       console.log('Error fetching the user:', error);
