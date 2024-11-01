@@ -1,6 +1,5 @@
 import { useState, useEffect, createContext } from 'react';
 import api from '../services/api';
-import axios from 'axios'
 
 const AuthContext = createContext(null);
 
@@ -40,8 +39,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, first_name, last_name, email, password) => {
     try {
-     const response = await axios.post(
-      "https://firstbank-investsmart-fb01b73cbf8c.herokuapp.com/api/register/",
+     const response = await api.post(
+      "register/",
       { username, first_name, last_name, email, password },
       {
         withCredentials: true,
