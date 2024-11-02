@@ -37,13 +37,10 @@ const NewsComponents = ({ query }) => {
         <ul className='my-4'>
             {articles.slice(0, showAll ? articles.length : visibleArticles).map((article ,index) => (
                 <li className='my-4 p-4 hover:bg-slate-700 rounded' key={index}>
-                     <div>
-                        <img src={article.urlToImage} className='w-24' alt="" />
-                    </div>
                     <a href={articles.url} target='_blank' rel='nooopener noreferrer'>
-                       
-                        <h3 className='text-2xl text-primaryGold font-semibold'>{article.title}</h3>
-                        <p className='text-md text-primaryGold'>{article.description}</p>
+                    <h3 className='text-sm text-primaryGold font-semibold'>{article.source_url}</h3>
+                    <h3 className='text-sm text-primaryGold font-semibold'>{article.pubDate}</h3>
+                    <h3 className='text-2xl text-primaryGold font-semibold'>{article.title}</h3>
                     </a>
                 </li>
             ))}
