@@ -44,7 +44,7 @@ const NewsPage = () => {
                 <div className='p-4 flex-1'>
                     <h1 className='text-center text-3xl text-primaryGold font-bold mb-2'>All News Articles</h1>
                     <ul className='m-4 p-4'>
-                        {currentArticles.map((article, index) => (
+                        {articles.map((article, index) => (
                             <li className='my-4 p-4 hover:bg-slate-700 rounded' key={index}>
                             <a href={articles.url} target='_blank' rel='nooopener noreferrer'>
                             <h3 className='text-sm text-primaryGold font-semibold'>{article.source_url}</h3>
