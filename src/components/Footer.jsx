@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <div className='bg-secondBlue'>
         <section className='py-8 px-4 mx-auto'>
-            <footer className='flex justify-between mx-40 text-center md:text-left'>
-                <div>
+            <footer className='flex flex-col md:flex-row justify-between mx-4 md:mx-40 text-center md:text-left'>
+                <div className='mb-6 md:mb-0'>
                     <h2 className='text-2xl text-white font-bold mb-4'>Company</h2>
                     <ul className='text-lg text-white font-semibold'>
                         <li className='mb-2'><a href="#about" className='flex items-center hover:text-primaryGold'><i className="bi bi-info-circle mr-2"></i> About Us</a></li>
@@ -13,7 +13,7 @@ const Footer = () => {
                         <li className='mb-2'><a href="#careers" className='flex items-center hover:text-primaryGold'><i className="bi bi-person-workspace mr-2"></i> Careers</a></li>
                     </ul>
                 </div>
-                <div>
+                <div className='mb-6 md:mb-0'>
                     <h2 className='text-2xl text-white font-bold mb-4'>Support</h2>
                     <ul className='text-lg text-white font-semibold'>
                         <li className='mb-2'><a href="#contact" className='flex items-center hover:text-primaryGold'><i className="bi bi-envelope mr-2"></i> Contact Us</a></li>
@@ -21,7 +21,7 @@ const Footer = () => {
                         <li className='mb-2'><a href="#terms" className='flex items-center hover:text-primaryGold'><i className="bi bi-file-earmark-text mr-2"></i> Terms of Service</a></li>
                     </ul>
                 </div>
-                <div>
+                <div className='mb-6 md:mb-0'>
                     <h2 className='text-2xl text-white font-bold mb-4'>Follow Us</h2>
                     <ul className='text-lg text-white font-semibold'>
                         <li className='mb-2'>
@@ -50,7 +50,7 @@ const Footer = () => {
             </p>
         </section>
     </div>
-  )
+  );
 }
 
 export default Footer;
