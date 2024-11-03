@@ -1,25 +1,39 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Ensure this line is included
 
-
 const SideMenu = () => {
   const navigate = useNavigate();
   const { logout } = useContext(AuthContext);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleNavigation = (path) => {
+    setIsSidebarOpen(false); // Close the sidebar after navigation on small screens
     navigate(path);
   };
 
   const handleLogout = () => {
     logout();
     navigate('/');
+    setIsSidebarOpen(false);
   };
 
   return (
-    <div className='min-h-screen flex'>
-      <nav className='border-r border-primaryGold px-4 w-64 flex flex-col min-h-screen'>
+    <div className={`min-h-screen flex ${isSidebarOpen ? 'flex-row' : 'flex-col md:flex-row'}`}>
+      {/* Toggle Button for Small Screens */}
+      <button 
+        className="md:hidden p-3 text-primaryGold" 
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      >
+        <i className={`bi ${isSidebarOpen ? 'bi-x' : 'bi-list'} text-3xl`}></i> {/* Toggle icon */}
+      </button>
+
+      {/* Sidebar */}
+      <nav 
+        className={`border-r border-primaryGold px-4 w-64 flex flex-col min-h-screen bg-white transition-transform 
+                    ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:w-64`}
+      >
         <ul className='space-y-4 flex flex-col'>
           <h1 className='text-center text-2xl uppercase p-2 font-extrabold text-primaryGold'>Menu</h1>
 
@@ -64,7 +78,6 @@ const SideMenu = () => {
               <i className="bi bi-box-arrow-right mr-2"></i> Logout
             </li>
           </button>
-          
         </ul>
       </nav>
     </div>

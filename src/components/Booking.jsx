@@ -59,7 +59,7 @@ const Booking = () => {
                 <div className='mb-4'>
                   <label className='block text-lg font-semibold text-primaryGold mb-2' htmlFor='first_name'>Name</label>
                   {/* Add a check for currentUser */}
-                  <p className='text-lg text-gray-700'>
+                  <p className='text-lg font-semibold text-primaryGold'>
                     {currentUser ? currentUser.first_name : 'Loading...'}
                   </p>
                 </div>

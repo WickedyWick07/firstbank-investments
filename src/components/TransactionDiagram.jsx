@@ -81,32 +81,17 @@ const TransactionDiagram = () => {
               labelLine={false}
               label={renderCustomizedLabel}
               outerRadius="80%"
-              innerRadius="50%"
               fill="#8884d8"
               dataKey="value"
-              strokeWidth={2}
-              stroke="#1a1a1a"
             >
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
               ))}
             </Pie>
             <Tooltip content={<CustomTooltip />} />
-            <Legend
-              layout="vertical"
-              verticalAlign="middle"
-              align="right"
-              iconType="circle"
-              iconSize={10}
-              formatter={(value, entry, index) => (
-                <span className="text-sm font-semibold text-gray-200">{value}</span>
-              )}
-            />
+            <Legend verticalAlign="bottom" height={36} />
           </PieChart>
         </ResponsiveContainer>
-      </div>
-      <div className="mt-6 text-center text-sm text-gray-300">
-        <p>Total transactions: {chartData.reduce((acc, item) => acc + item.value, 0).toFixed(2)}</p>
       </div>
     </div>
   );
