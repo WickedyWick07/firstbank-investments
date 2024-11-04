@@ -33,22 +33,22 @@ const Dashboard = () => {
         <Header />
       </section>
 
-      <section className='flex flex-col md:flex-row'>
+      <section className='flex'>
         <SideMenu />
-        <div className='flex-1 p-4 md:p-5 bg-secondaryBlue rounded-lg m-4 shadow-lg'>
-          <h1 className='text-xl sm:text-2xl md:text-3xl text-primaryGold uppercase font-semibold mb-4'>Dashboard</h1>
-          <div className='flex flex-col md:flex-row justify-between gap-4 mb-6'>
+        <div className='flex-1 p-5 bg-secondaryBlue rounded-lg m-4 shadow-lg'>
+          <h1 className='text-2xl text-primaryGold uppercase font-semibold mb-4'>Dashboard</h1>
+          <div className='flex justify-between gap-4 mb-6'>
             <DashboardCards />
           </div>
 
-          <section className='flex flex-col md:flex-row gap-4 mb-6'>
-            <div className='bg-primaryBlue p-4 rounded-lg flex-1 transition-all duration-300 ease-in-out'>
-              <ChartComponent />
-            </div>
-            <div className='bg-primaryBlue p-4 rounded-lg flex-1 transition-all duration-300 ease-in-out hover:bg-gradient-to-br from-primaryBlue to-secondBlue hover:shadow-lg'>
-              <TransactionDiagram />
-            </div>
-          </section>
+          <section className='flex gap-4 mb-6'>
+  <div className=' bg-primaryBlue p-4 rounded-lg  flex-1 transition-all duration-300 ease-in-out'>
+    <ChartComponent />
+  </div>
+  <div className='bg-primaryBlue p-4 rounded-lg flex-1 transition-all duration-300 ease-in-out hover:bg-gradient-to-br from-primaryBlue to-secondBlue hover:shadow-lg'>
+    <TransactionDiagram />
+  </div>
+</section>
 
           <section>
             <div className='bg-primaryBlue p-4 rounded-lg'>
@@ -56,11 +56,12 @@ const Dashboard = () => {
             </div>
           </section>
           <section>
-            <div className='mt-6 bg-gradient-to-br from-primaryBlue to-secondBlue p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out'>
-              <h3 className='text-lg sm:text-xl md:text-2xl font-bold text-primaryGold mb-4'>Latest Stock News</h3>
-              <NewsComponents query='stock' />
-            </div>
-          </section>
+  <div className='mt-6 bg-gradient-to-br from-primaryBlue to-secondBlue p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out'>
+    <h3 className='text-xl font-bold text-primaryGold mb-4'>Latest Stock News</h3>
+    <NewsComponents query='stock' />
+  </div>
+</section>
+
         </div>
       </section>
     </div>

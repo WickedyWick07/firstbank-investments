@@ -3,17 +3,13 @@ import AuthContext from '../../context/AuthContext';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import { FaCreditCard, FaChevronRight } from 'react-icons/fa';
-import { useMediaQuery } from 'react-responsive';
 
 const DashboardCards = () => {
   const { fetchCurrentUser, currentUser } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [cardDetails, setCardDetails] = useState([]);
   const navigate = useNavigate();
-  const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
-  const isTablet = useMediaQuery({ query: '(min-width: 601px) and (max-width: 900px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 901px)' });
-  
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -48,13 +44,8 @@ const DashboardCards = () => {
     return `**** **** **** ${number.slice(-4)}`;
   }
 
-  // Define media queries
-
-  // Determine the number of columns based on screen size
-  const columns = isMobile ? 1 : isTablet ? 2 : 3;
-
   return (
-    <div className={`grid grid-cols-${columns} gap-8 m-6`}>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 m-6'>
       {cardDetails.length > 0 ? (
         cardDetails.map((card) => (
           <div 

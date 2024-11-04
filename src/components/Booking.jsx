@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useMediaQuery } from 'react-responsive'; // Import the useMediaQuery hook
 import Header from './Header';
 import SideMenu from './SideMenu';
 import { Formik, Field, Form } from 'formik';
@@ -13,10 +12,6 @@ import api from '../../services/api';
 const Booking = () => {
   const { fetchCurrentUser, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  // Media queries for responsive design
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   useEffect(() => {
     fetchCurrentUser();
@@ -44,13 +39,12 @@ const Booking = () => {
     }
   };
 
-
   return (
     <div className='bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col'>
       <Header />
       <section className='flex flex-1'>
-        {isDesktop && <SideMenu />} {/* Only show SideMenu on desktop */}
-        <div className={`flex-1 p-6 ${isDesktop ? 'md:pl-0' : 'md:pl-4'}`}>
+        <SideMenu />
+        <div className='flex-1 p-6'>
           <h1 className='text-3xl font-bold text-primaryGold text-center uppercase mb-6'>Book Your Banker</h1>
           <Formik
             initialValues={{

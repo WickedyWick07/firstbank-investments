@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import { FaCreditCard } from 'react-icons/fa';
-import mastercard from '../assets/images/mastercard-logo.png';
-import { useMediaQuery } from 'react-responsive';
+import { FaCreditCard, FaChevronRight } from 'react-icons/fa';
+import mastercard from '../assets/images/mastercard-logo.png'
+
+
 
 const CardComponent = () => {
   const [cardDetails, setCardDetails] = useState([]);
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
-  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-  const isTablet = useMediaQuery({ query: '(min-width: 641px) and (max-width: 1024px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)' });
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchCardDetails = async () => {
@@ -20,19 +18,20 @@ const CardComponent = () => {
         setCardDetails(response.data);
       } catch (error) {
         console.error('Error fetching the card details', error);
-      } finally {
-        setIsLoading(false);
+      }finally{
+        setIsLoading(false)
       }
     };
 
     fetchCardDetails();
+  
   }, []);
 
   const handleCardDetailView = (card) => {
     navigate(`/cards/${card.id}`);
   };
 
-
+  
   if (isLoading) {
     return (
       <div className="flex justify-center bg-primaryBlue min-h-screen items-center h-screen">
@@ -43,7 +42,7 @@ const CardComponent = () => {
 
   return (
     <div className="p-6 bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col">
-      <section className={`grid ${isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-2' : 'grid-cols-3'} gap-6 mb-8`}>
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {cardDetails.map((card) => (
           <div
             key={card.id}
@@ -64,17 +63,18 @@ const CardComponent = () => {
               <p className='text-lg text-gray-100'>Account Number: {card.card_number}</p>
               <div className="flex justify-between items-center mt-4">
                 <p className='text-white font-semibold'>{card.account_type}</p>
-                <img src={mastercard} alt="MasterCard" className="w-12"/>
+              <img src={mastercard} alt="MasterCard" className="w-12"/>
               </div>
+            
             </div>
           </div>
         ))}
       </section>
 
-      <section className={`grid ${isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-2' : 'grid-cols-3'} gap-6`}>
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {cardDetails.map((card) => (
           <div key={card.id} className="bg-gradient-to-r from-primaryBlue to-[#004c99] p-6 border border-gray-300 rounded-lg shadow-md">
-            <p className="text-lg font-semibold text-primaryGold mb-2">
+            <p className="text-lg font-semibold  text-primaryGold mb-2">
               Expiry Date: {card.expiration_date}
             </p>
             <p className="text-lg font-semibold text-primaryGold mb-2">
