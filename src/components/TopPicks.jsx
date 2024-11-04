@@ -51,7 +51,7 @@ const TopPicks = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center bg-primaryBlue min-h-screen items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-primaryGold"></div>
+        <div className="animate-spin rounded-full h-16 w-16 xs:h-24 xs:w-24 sm:h-32 sm:w-32 border-t-4 border-b-4 border-primaryGold"></div>
       </div>
     );
   }
@@ -59,38 +59,36 @@ const TopPicks = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-primaryBlue to-secondBlue">
       <Header />
-      <div className="flex">
+      <div className="flex flex-col sm:flex-row">
         <SideMenu />
-        <main className="flex-1 p-6">
-        <section className="flex flex-col py-8 px-6 bg-gradient-to-r from-primaryBlue to-secondBlue rounded-lg shadow-md">
-  <p className="text-3xl text-primaryGold font-semibold mb-8 leading-relaxed">
-    Below is an overview of the current stock holdings within our investment bank's portfolio. We take pride in our strategic investments and diverse asset management.
-  </p>
-  <div className="space-y-6">
-    <p className='text-lg text-white leading-relaxed'>
-      Our investment bank holds a diverse range of stocks across key sectors, focusing on technology, finance, and cryptocurrency. In the technology sector, we have significant positions in leading companies such as Apple and Microsoft. These tech giants are at the forefront of innovation, and their growth potential aligns well with our long-term investment strategy.
-    </p>
-    <p className='text-lg text-white leading-relaxed'>
-      In the finance sector, our portfolio includes major financial instruments like the NDX index and GBP/USD forex pair. These assets provide stability and are crucial for balanced investment strategies, reflecting our market expertise and commitment to robust financial management.
-    </p>
-    <p className='text-lg text-white leading-relaxed'>
-      Additionally, our investment in cryptocurrency includes Bitcoin, which represents our forward-thinking approach to emerging asset classes. Bitcoin's performance and potential for high returns make it a valuable component of our investment strategy.
-    </p>
-    <p className='text-lg text-white leading-relaxed'>
-      Our current stock holdings are carefully selected to balance risk and reward, leveraging strong growth prospects across various sectors. We continuously analyze market trends to adjust our investments, ensuring alignment with our clients' goals and the evolving economic landscape.
-    </p>
-  </div>
-</section>
+        <main className="flex-1 p-4 xs:p-6 sm:p-8">
+          <section className="flex flex-col py-6 xs:py-8 px-4 xs:px-6 sm:px-8 bg-gradient-to-r from-primaryBlue to-secondBlue rounded-lg shadow-md">
+            <p className="text-xl xs:text-2xl sm:text-3xl text-primaryGold font-semibold mb-4 xs:mb-6 sm:mb-8 leading-relaxed">
+              Below is an overview of the current stock holdings within our investment bank's portfolio. We take pride in our strategic investments and diverse asset management.
+            </p>
+            <div className="space-y-4 xs:space-y-5 sm:space-y-6">
+              <p className='text-sm xs:text-base sm:text-lg text-white leading-relaxed'>
+                Our investment bank holds a diverse range of stocks across key sectors, focusing on technology, finance, and cryptocurrency. In the technology sector, we have significant positions in leading companies such as Apple and Microsoft. These tech giants are at the forefront of innovation, and their growth potential aligns well with our long-term investment strategy.
+              </p>
+              <p className='text-sm xs:text-base sm:text-lg text-white leading-relaxed'>
+                In the finance sector, our portfolio includes major financial instruments like the NDX index and GBP/USD forex pair. These assets provide stability and are crucial for balanced investment strategies, reflecting our market expertise and commitment to robust financial management.
+              </p>
+              <p className='text-sm xs:text-base sm:text-lg text-white leading-relaxed'>
+                Additionally, our investment in cryptocurrency includes Bitcoin, which represents our forward-thinking approach to emerging asset classes. Bitcoin's performance and potential for high returns make it a valuable component of our investment strategy.
+              </p>
+              <p className='text-sm xs:text-base sm:text-lg text-white leading-relaxed'>
+                Our current stock holdings are carefully selected to balance risk and reward, leveraging strong growth prospects across various sectors. We continuously analyze market trends to adjust our investments, ensuring alignment with our clients' goals and the evolving economic landscape.
+              </p>
+            </div>
+          </section>
 
-
-
-          <div className="grid grid-cols-3 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-6 mt-6">
             {loadedCharts.map(({ symbol, Component }) => (
               <div key={symbol} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <div className="p-4 bg-gray-50 border-b border-gray-200">
-                  <h3 className="text-lg font-semibold text-gray-800">{symbol}</h3>
+                <div className="p-3 xs:p-4 bg-gray-50 border-b border-gray-200">
+                  <h3 className="text-base xs:text-lg font-semibold text-gray-800">{symbol}</h3>
                 </div>
-                <div className="p-4">
+                <div className="p-3 xs:p-4">
                   <Component />
                 </div>
               </div>

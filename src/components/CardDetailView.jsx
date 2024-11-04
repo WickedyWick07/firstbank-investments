@@ -6,15 +6,13 @@ import Header from './Header';
 import SideMenu from './SideMenu';
 import TransactionForm from './TransactionForm';
 import { FaCreditCard } from 'react-icons/fa';
-import mastercard from '../assets/images/mastercard-logo.png'
-
-
+import mastercard from '../assets/images/mastercard-logo.png';
 
 const CardDetailView = () => {
   const { id } = useParams();
   const [cardDetails, setCardDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { fetchCurrentUser, currentUser } = useContext(AuthContext);
+  const { fetchCurrentUser , currentUser  } = useContext(AuthContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
@@ -29,10 +27,9 @@ const CardDetailView = () => {
       }
     };
 
-    fetchCurrentUser();
+    fetchCurrentUser ();
     fetchCardDetails();
   }, [id]);
-
 
   if (isLoading) {
     return (
@@ -51,58 +48,53 @@ const CardDetailView = () => {
     <div className="bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col">
       <Header />
 
-      <section className="flex flex-1 p-6">
+      <section className="flex flex-1 p-4 sm:p-6">
         <SideMenu />
-        <div className="flex-1 p-6 space-y-6">
-          <h1 className="text-3xl text-primaryGold font-bold mb-4 underline">Card Details</h1>
+        <div className="flex-1 p-4 sm:p-6 space-y-6">
+          <h1 className="text-2xl sm:text-3xl text-primaryGold font-bold mb-4 underline">Card Details</h1>
 
-          <div className="max-w-md mx-auto bg-gradient-to-r from-primaryBlue to-secondBlue shadow-xl p-6 rounded-lg flex flex-col">
-           
-
-            
+          <div className="max-w-md mx-auto bg-gradient-to-r from-primaryBlue to-secondBlue shadow-xl p-4 sm:p-6 rounded-lg flex flex-col">
             <div className="flex justify-between items-center mb-4">
               <div>
-                <h2 className='text-xl font-bold text-primaryGold'>GlobalOne</h2>
-                <p className='text-sm text-gray-300 font-semibold'>FirstBank Ltd</p>
+                <h2 className='text-lg sm:text-xl font-bold text-primaryGold'>GlobalOne</h2>
+                <p className='text-xs sm:text-sm text-gray-300 font-semibold'>FirstBank Ltd</p>
               </div>
               <div>
-                <FaCreditCard className="w-8 h-8 text-gray-200" />
+                <FaCreditCard className="w-6 h-6 sm:w-8 sm:h-8 text-gray-200" />
               </div>
             </div>
 
             <div>
-              <p className='text-lg font-semibold text-gray-100'>Account Number: {cardDetails.card_number}</p>
+              <p className='text-md sm:text-lg font-semibold text-gray-100'>Account Number: {cardDetails.card_number}</p>
               <div className="flex justify-between items-center mt-4">
                 <p className='text-white font-semibold'>{cardDetails.account_type}</p>
-              <img src={mastercard} alt="MasterCard" className="w-12"/>
+                <img src={mastercard} alt="MasterCard" className="w-10 sm:w-12" />
               </div>
-            
             </div>
           </div>
-        
 
-          <div className="bg-gradient-to-r from-blue-800 to-blue-600 shadow-lg rounded-lg p-6">
-            <h2 className="text-xl text-white font-bold mb-4">Account Information</h2>
+          <div className="bg-gradient-to-r from-blue-800 to-blue-600 shadow-lg rounded-lg p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl text-white font-bold mb-4">Account Information</h2>
             <div className="space-y-2 text-white">
-              <p className="text-lg font-medium">
-                <span className="font-semibold">Account Holder:</span> {currentUser.username}
+              <p className="text-md sm:text-lg font-medium">
+                <span className="font-semibold">Account Holder:</span> {currentUser .username}
               </p>
-              <p className="text-lg font-medium">
+              <p className="text-md sm:text-lg font-medium">
                 <span className="font-semibold">Account Number:</span> {cardDetails.card_number}
               </p>
-              <p className="text-lg font-medium">
+              <p className="text-md sm:text-lg font-medium">
                 <span className="font-semibold">Account Type:</span> {cardDetails.account_type}
               </p>
-              <p className="text-lg font-medium">
-                <span className="font-semibold">Card Type:</span> {cardDetails.card_type}
+              <p className="text-md sm:text-lg font-medium">
+                <span className="font-semibold">Card Type:</span> {cardDetails .card_type}
               </p>
-              <p className="text-lg font-medium">
+              <p className="text-md sm:text-lg font-medium">
                 <span className="font-semibold">Expiration Date:</span> {cardDetails.expiration_date}
               </p>
-              <p className="text-lg font-medium">
+              <p className="text-md sm:text-lg font-medium">
                 <span className="font-semibold">Account Active:</span> {cardDetails.is_active ? 'True' : 'False'}
               </p>
-              <p className="text-lg font-medium">
+              <p className="text-md sm:text-lg font-medium">
                 <span className="font-semibold">Balance:</span> {cardDetails.balance}
               </p>
             </div>

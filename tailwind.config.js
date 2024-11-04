@@ -10,7 +10,12 @@ module.exports = {
         primaryBlue: "#051622",
         secondBlue: "#1BA098",
         primaryGold: "#DEB992",
-      }
+      },
+      screens: {
+        'xs': '309px',
+        'sm': '412px',
+        'md': '768px',
+      },
     },
   },
   plugins: [],
