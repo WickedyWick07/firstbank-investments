@@ -6,7 +6,7 @@ import DashboardCards from './DashboardCards';
 import ChartComponent from './ChartComponent';
 import TransactionDiagram from './TransactionDiagram';
 import StockData from './StockData';
-import NewsComponents from './NewsComponents';
+import NewsComponents from './NewsComponents.';
 import api from '../../services/api';
 
 const Dashboard = () => {
