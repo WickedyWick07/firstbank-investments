@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 const TransactionForm = ({ cardId }) => {
   const [amount, setAmount] = useState('');
@@ -8,6 +9,11 @@ const TransactionForm = ({ cardId }) => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+
+  // Media queries for responsive design
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   useEffect(() => {
     fetchBalance();
@@ -56,9 +62,13 @@ const TransactionForm = ({ cardId }) => {
     }
   };
 
+  // Determine the maximum width of the container based on device size
+  const containerClass = isDesktop ? 'max-w-md' : isTablet ? 'max-w-sm' : 'max-w-xs';
+  const buttonClass = isDesktop ? 'py-2 px-4' : 'py-1 px-2'; // Adjust button padding for different screen sizes
+
   return (
     <div className="bg-gradient-to-r from-primaryBlue to-secondBlue flex items-center justify-center p-4">
-      <div className="bg-gradient-to-r from-blue-100 to-blue-300 shadow-lg p-6 rounded-lg max-w-md w-full">
+      <div className={`bg-gradient-to-r from-blue-100 to-blue-300 shadow-lg p-6 rounded-lg w-full ${containerClass}`}>
         <h3 className="text-2xl font-bold text-primaryGold mb-4">Make a Transaction</h3>
         <p className="mb-4 text-gray-700">Current Balance: <span className="font-bold">${balance}</span></p>
         <form>
@@ -80,14 +90,14 @@ const TransactionForm = ({ cardId }) => {
             <button
               type="button"
               onClick={handleWithdraw}
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-300"
+              className={`bg-red-500 hover:bg-red-600 text-white font-bold transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-red-300 ${buttonClass}`}
             >
               Withdraw
             </button>
             <button
               type="button"
               onClick={handleDeposit}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-300"
+              className={`bg-green-500 hover:bg-green-600 text-white font-bold transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-green-300 ${buttonClass}`}
             >
               Deposit
             </button>

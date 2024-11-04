@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import api from '../../services/api';
+import { useMediaQuery } from 'react-responsive';
 
 const TransactionDiagram = () => {
   const [chartData, setChartData] = useState([]);
+
+  // Media queries for responsive design
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   useEffect(() => {
     const fetchTransactionData = async () => {
@@ -68,10 +74,13 @@ const TransactionDiagram = () => {
     );
   };
 
+  // Determine the height based on the device size
+  const chartHeight = isDesktop ? 400 : isTablet ? 300 : 250;
+
   return (
     <div className='bg-gradient-to-br from-secondaryBlue to-primaryBlue shadow-lg p-6 rounded-lg text-white'>
       <h3 className='text-2xl font-bold mb-6 text-primaryGold text-center'>Transaction Breakdown</h3>
-      <div className='bg-white bg-opacity-10 p-4 rounded-lg' style={{ height: '400px' }}>
+      <div className='bg-white bg-opacity-10 p-4 rounded-lg' style={{ height: chartHeight }}>
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie

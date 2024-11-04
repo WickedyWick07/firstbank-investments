@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive'; // Import useMediaQuery
 import Header from './Header';
 import SideMenu from './SideMenu';
 
@@ -26,9 +27,13 @@ const TopPicks = () => {
     { symbol: 'BITCOIN', Component: BTCUSDChart },
   ];
 
+  // Define media queries for responsiveness
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isTablet = useMediaQuery({ query: '(min-width: 769px) and (max-width: 1024px)' });
+
   useEffect(() => {
     let isMounted = true;
-    
+
     const loadChartsSequentially = async () => {
       for (const chart of chartComponents) {
         if (!isMounted) break;
@@ -61,7 +66,7 @@ const TopPicks = () => {
       <Header />
       <div className="flex flex-col sm:flex-row">
         <SideMenu />
-        <main className="flex-1 p-4 xs:p-6 sm:p-8">
+        <main className={`flex-1 p-4 xs:p-6 sm:p-8 ${isMobile ? 'overflow-auto' : ''}`}>
           <section className="flex flex-col py-6 xs:py-8 px-4 xs:px-6 sm:px-8 bg-gradient-to-r from-primaryBlue to-secondBlue rounded-lg shadow-md">
             <p className="text-xl xs:text-2xl sm:text-3xl text-primaryGold font-semibold mb-4 xs:mb-6 sm:mb-8 leading-relaxed">
               Below is an overview of the current stock holdings within our investment bank's portfolio. We take pride in our strategic investments and diverse asset management.
@@ -82,7 +87,7 @@ const TopPicks = () => {
             </div>
           </section>
 
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-6 mt-6">
+          <div className={`grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-6 mt-6 ${isMobile ? 'overflow-auto' : ''}`}>
             {loadedCharts.map(({ symbol, Component }) => (
               <div key={symbol} className="bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="p-3 xs:p-4 bg-gray-50 border-b border-gray-200">

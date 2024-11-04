@@ -7,13 +7,17 @@ import SideMenu from './SideMenu';
 import TransactionForm from './TransactionForm';
 import { FaCreditCard } from 'react-icons/fa';
 import mastercard from '../assets/images/mastercard-logo.png';
+import { useMediaQuery } from 'react-responsive';
 
 const CardDetailView = () => {
   const { id } = useParams();
   const [cardDetails, setCardDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { fetchCurrentUser , currentUser  } = useContext(AuthContext);
+  const { fetchCurrentUser, currentUser } = useContext(AuthContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  // Media queries for responsive design
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' });
 
   useEffect(() => {
     const fetchCardDetails = async () => {
@@ -27,7 +31,7 @@ const CardDetailView = () => {
       }
     };
 
-    fetchCurrentUser ();
+    fetchCurrentUser();
     fetchCardDetails();
   }, [id]);
 
@@ -38,6 +42,7 @@ const CardDetailView = () => {
       </div>
     );
   }
+  
   if (!cardDetails) return <div className="text-white text-center py-4">No Card Details...</div>;
 
   const toggleTransactionForm = () => {
@@ -48,9 +53,9 @@ const CardDetailView = () => {
     <div className="bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col">
       <Header />
 
-      <section className="flex flex-1 p-4 sm:p-6">
-        <SideMenu />
-        <div className="flex-1 p-4 sm:p-6 space-y-6">
+      <section className={`flex flex-1 p-4 ${isSmallScreen ? 'p-2' : 'p-6'}`}>
+        {!isSmallScreen && <SideMenu />}
+        <div className={`flex-1 space-y-6 ${isSmallScreen ? 'p-2' : 'p-4 sm:p-6'}`}>
           <h1 className="text-2xl sm:text-3xl text-primaryGold font-bold mb-4 underline">Card Details</h1>
 
           <div className="max-w-md mx-auto bg-gradient-to-r from-primaryBlue to-secondBlue shadow-xl p-4 sm:p-6 rounded-lg flex flex-col">
@@ -77,7 +82,7 @@ const CardDetailView = () => {
             <h2 className="text-lg sm:text-xl text-white font-bold mb-4">Account Information</h2>
             <div className="space-y-2 text-white">
               <p className="text-md sm:text-lg font-medium">
-                <span className="font-semibold">Account Holder:</span> {currentUser .username}
+                <span className="font-semibold">Account Holder:</span> {currentUser.username}
               </p>
               <p className="text-md sm:text-lg font-medium">
                 <span className="font-semibold">Account Number:</span> {cardDetails.card_number}
@@ -86,7 +91,7 @@ const CardDetailView = () => {
                 <span className="font-semibold">Account Type:</span> {cardDetails.account_type}
               </p>
               <p className="text-md sm:text-lg font-medium">
-                <span className="font-semibold">Card Type:</span> {cardDetails .card_type}
+                <span className="font-semibold">Card Type:</span> {cardDetails.card_type}
               </p>
               <p className="text-md sm:text-lg font-medium">
                 <span className="font-semibold">Expiration Date:</span> {cardDetails.expiration_date}

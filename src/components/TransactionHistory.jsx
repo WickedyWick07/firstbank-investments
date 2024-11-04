@@ -4,23 +4,29 @@ import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import SideMenu from './SideMenu';
+import { useMediaQuery } from 'react-responsive';
 
 const TransactionHistory = () => {
     const [transactionHistory, setTransactionHistory] = useState([]);
     const { fetchCurrentUser } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Media queries for responsive design
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
 
     useEffect(() => {
         const fetchTransactionHistory = async () => {
-            setIsLoading(true)
+            setIsLoading(true);
             try {
                 const response = await api.get('/transactions/history/');
                 setTransactionHistory(response.data);
             } catch (error) {
                 console.error('Failed to fetch transaction data:', error);
             } finally {
-                setIsLoading(false)
+                setIsLoading(false);
             }
         };
 
@@ -32,16 +38,13 @@ const TransactionHistory = () => {
         navigate('/dashboard');
     };
 
-    
-  if (isLoading) {
-    return (
-      <div className="flex justify-center bg-primaryBlue min-h-screen items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-primaryGold"></div>
-      </div>
-    );
-  }
-
-
+    if (isLoading) {
+        return (
+            <div className="flex justify-center bg-primaryBlue min-h-screen items-center h-screen">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-primaryGold"></div>
+            </div>
+        );
+    }
 
     return (
         <div className='bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col'>
@@ -49,30 +52,29 @@ const TransactionHistory = () => {
 
             <div className='flex flex-1'>
                 <SideMenu />
-                <div className='flex-1 p-6'>
+                <div className={`flex-1 p-6 ${isDesktop ? 'max-w-3xl' : isTablet ? 'max-w-2xl' : 'max-w-full'}`}>
                     <h1 className='text-3xl font-bold text-primaryGold mb-6'>Transaction History</h1>
                     {transactionHistory.length > 0 ? (
-                       <div className='space-y-6'>
-                       {transactionHistory.map((transaction, index) => (
-                         <div
-                           key={index}
-                           className="bg-gradient-to-r from-primaryBlue to-[#004c99] p-6 rounded-lg shadow-2xl border cursor-pointer transition-transform transform  hover:shadow-xl hover:border-yellow-400"
-                         >
-                           <div className='flex flex-col space-y-4'>
-                             <p className="text-white text-lg uppercase">
-                               <strong className='text-yellow-400'>Type:</strong> {transaction.transaction_type}
-                             </p>
-                             <p className="text-white text-lg uppercase">
-                               <strong className='text-yellow-400'>Amount:</strong> ${transaction.amount}
-                             </p>
-                             <p className="text-white text-lg uppercase">
-                               <strong className='text-yellow-400'>Date:</strong> {new Date(transaction.date).toLocaleDateString()}
-                             </p>
-                           </div>
-                         </div>
-                       ))}
-                     </div>
-                     
+                        <div className='space-y-6'>
+                            {transactionHistory.map((transaction, index) => (
+                                <div
+                                    key={index}
+                                    className="bg-gradient-to-r from-primaryBlue to-[#004c99] p-6 rounded-lg shadow-2xl border cursor-pointer transition-transform transform hover:shadow-xl hover:border-yellow-400"
+                                >
+                                    <div className='flex flex-col space-y-4'>
+                                        <p className="text-white text-lg uppercase">
+                                            <strong className='text-yellow-400'>Type:</strong> {transaction.transaction_type}
+                                        </p>
+                                        <p className="text-white text-lg uppercase">
+                                            <strong className='text-yellow-400'>Amount:</strong> ${transaction.amount}
+                                        </p>
+                                        <p className="text-white text-lg uppercase">
+                                            <strong className='text-yellow-400'>Date:</strong> {new Date(transaction.date).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     ) : (
                         <p className='text-white text-lg'>No transactions found.</p>
                     )}

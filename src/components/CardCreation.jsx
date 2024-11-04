@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/AuthContext';
 import api from '../../services/api';
 import { useNavigate } from 'react-router-dom';
-import CardComponent from './CardComponent';
+import { useMediaQuery } from 'react-responsive';
 
 const CardCreation = () => {
   const { fetchCurrentUser, currentUser } = useContext(AuthContext);
@@ -49,6 +49,10 @@ const CardCreation = () => {
     }
   };
 
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+  const isTablet = useMediaQuery({ query: '(min-width: 641px) and (max-width: 1024px)' });
+  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)' });
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -60,28 +64,28 @@ const CardCreation = () => {
   return (
     <div className='min-h-screen bg-primaryBlue flex items-center justify-center p-4 sm:p-6 md:p-8'>
       {currentUser ? (
-        <div className='bg-white rounded-lg shadow-xl p-4 sm:p-6 md:p-8 w-full max-w-[90%] sm:max-w-[80%] md:max-w-3xl'>
-          <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-center text-primaryGold mb-4 sm:mb-6 md:mb-8'>
+        <div className={`bg-white rounded-lg shadow-xl p-4 ${isMobile ? 'w-full' : isTablet ? 'max-w-[80%]' : 'max-w-3xl'} `}>
+          <h1 className={`text-2xl ${isMobile ? 'text-3xl' : isTablet ? 'text-4xl' : 'text-4xl'} font-bold text-center text-primaryGold mb-4`}>
             Welcome, {currentUser.first_name}
           </h1>
           
           {error && (
-            <p className="text-red-500 text-sm sm:text-base text-center mb-3 sm:mb-4">
+            <p className="text-red-500 text-sm text-center mb-3">
               {error}
             </p>
           )}
 
           {cardCount < 3 ? (
-            <form className='space-y-4 sm:space-y-6' onSubmit={handleSubmit}>
-              <div className='grid grid-cols-1 gap-4 sm:gap-6'>
+            <form className='space-y-4' onSubmit={handleSubmit}>
+              <div className='grid grid-cols-1 gap-4'>
                 <label className='block'>
-                  <span className='text-gray-700 font-semibold text-sm sm:text-base'>
+                  <span className='text-gray-700 font-semibold text-sm'>
                     Card Type:
                   </span>
                   <select 
                     className='mt-1 p-2 text-center block w-full rounded-md font-semibold 
                     bg-primaryGold border-gray-300 shadow-sm focus:ring-primaryBlue 
-                    focus:border-primaryBlue text-sm sm:text-base' 
+                    focus:border-primaryBlue text-sm' 
                     value={card_type} 
                     onChange={(e) => setCardType(e.target.value)}
                   >
@@ -93,13 +97,13 @@ const CardCreation = () => {
                 </label>
 
                 <label className='block'>
-                  <span className='text-gray-700 font-semibold text-sm sm:text-base'>
+                  <span className='text-gray-700 font-semibold text-sm'>
                     Account Type:
                   </span>
                   <select 
                     className='mt-1 p-2 text-center block w-full rounded-md font-semibold 
                     bg-primaryGold border-gray-300 shadow-sm focus:ring-primaryBlue 
-                    focus:border-primaryBlue text-sm sm:text-base' 
+                    focus:border-primaryBlue text-sm' 
                     value={account_type} 
                     onChange={(e) => setAccountType(e.target.value)}
                   >
@@ -114,35 +118,34 @@ const CardCreation = () => {
 
               <button 
                 type="submit" 
-                className='w-full bg-primaryBlue text-white font-bold py-2 sm:py-3 px-4 
-                rounded-md hover:bg-primaryGold transition-colors duration-300
-                text-sm sm:text-base'
+                className='w-full bg-primaryBlue text-white font-bold py-2 px-4 
+                rounded-md hover:bg-primaryGold transition-colors duration-300'
               >
                 Create Card
               </button>
             </form>
           ) : (
-            <p className="text-red-500 text-center text-sm sm:text-base">
+            <p className="text-red-500 text-center text-sm">
               You cannot create more than 3 cards.
             </p>
           )}
 
           {cardDetails && (
-            <div className="mt-6 sm:mt-8 bg-gray-100 p-4 sm:p-6 rounded-lg shadow-md">
-              <h2 className="text-xl sm:text-2xl font-bold text-primaryBlue">
+            <div className="mt-6 bg-gray-100 p-4 rounded-lg shadow-md">
+              <h2 className="text-xl font-bold text-primaryBlue">
                 Card Details
               </h2>
-              <p className="mt-3 sm:mt-4 text-gray-700 text-sm sm:text-base">
+              <p className="mt-3 text-gray-700 text-sm">
                 Card Type: {cardDetails.card_type}
               </p>
-              <p className="mt-2 text-gray-700 text-sm sm:text-base">
+              <p className="mt-2 text-gray-700 text-sm">
                 Account Type: {cardDetails.account_type}
               </p>
             </div>
           )}
         </div>
       ) : (
-        <p className='text-white text-sm sm:text-base'>
+        <p className='text-white text-sm'>
           User data could not be loaded.
         </p>
       )}
