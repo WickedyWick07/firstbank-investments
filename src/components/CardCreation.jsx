@@ -13,6 +13,9 @@ const CardCreation = () => {
   const [account_type, setAccountType] = useState('');
   const [cardCount, setCardCount] = useState(0);
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+  const isTablet = useMediaQuery({ query: '(min-width: 641px) and (max-width: 1024px)' });
+  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)' });
 
   useEffect(() => {
     const fetchUserAndCards = async () => {
@@ -49,9 +52,6 @@ const CardCreation = () => {
     }
   };
 
-  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-  const isTablet = useMediaQuery({ query: '(min-width: 641px) and (max-width: 1024px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)' });
 
   if (isLoading) {
     return (

@@ -13,6 +13,10 @@ import api from '../../services/api';
 const Booking = () => {
   const { fetchCurrentUser, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  // Media queries for responsive design
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   useEffect(() => {
     fetchCurrentUser();
@@ -40,10 +44,6 @@ const Booking = () => {
     }
   };
 
-  // Media queries for responsive design
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   return (
     <div className='bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col'>

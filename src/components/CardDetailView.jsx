@@ -15,9 +15,9 @@ const CardDetailView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { fetchCurrentUser, currentUser } = useContext(AuthContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' });
 
   // Media queries for responsive design
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' });
 
   useEffect(() => {
     const fetchCardDetails = async () => {

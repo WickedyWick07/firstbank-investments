@@ -7,6 +7,8 @@ import { useMediaQuery } from 'react-responsive';
 function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 1024px)' });
 
   const handleLogin = async (email, password) => {
     const result = await login(email, password);
@@ -18,8 +20,6 @@ function Login() {
   };
 
   // Media queries for responsive design
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-  const isTablet = useMediaQuery({ query: '(max-width: 1024px)' });
 
   return (
     <div className={`bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col items-center justify-center py-8 px-4 ${isMobile ? 'sm:px-2' : 'sm:px-6 lg:px-8'}`}>

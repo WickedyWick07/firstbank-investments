@@ -10,10 +10,10 @@ import AuthContext from '../../context/AuthContext';
 const CardDetails = () => {
   const navigate = useNavigate();
   const { fetchCurrentUser } = useContext(AuthContext);
-
-  // Media queries for responsive design
   const isSmallScreen = useMediaQuery({ query: '(max-width: 640px)' });
   const isMediumScreen = useMediaQuery({ query: '(min-width: 641px) and (max-width: 1024px)' });
+  
+  // Media queries for responsive design
 
   const handleClick = () => {
     navigate('/account-creation');

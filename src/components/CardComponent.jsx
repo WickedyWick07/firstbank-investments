@@ -9,6 +9,9 @@ const CardComponent = () => {
   const [cardDetails, setCardDetails] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+  const isTablet = useMediaQuery({ query: '(min-width: 641px) and (max-width: 1024px)' });
+  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)' });
 
   useEffect(() => {
     const fetchCardDetails = async () => {
@@ -29,9 +32,6 @@ const CardComponent = () => {
     navigate(`/cards/${card.id}`);
   };
 
-  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-  const isTablet = useMediaQuery({ query: '(min-width: 641px) and (max-width: 1024px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)' });
 
   if (isLoading) {
     return (

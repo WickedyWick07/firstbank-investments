@@ -10,6 +10,8 @@ const NewsComponents = ({ query }) => {
   const [showAll, setShowAll] = useState(false);
   const [visibleArticles, setVisibleArticles] = useState(5);
   const navigate = useNavigate();
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -26,8 +28,6 @@ const NewsComponents = ({ query }) => {
     fetchNews();
   }, [query]);
 
-  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-  const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;

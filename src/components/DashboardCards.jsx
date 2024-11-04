@@ -10,7 +10,10 @@ const DashboardCards = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [cardDetails, setCardDetails] = useState([]);
   const navigate = useNavigate();
-
+  const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
+  const isTablet = useMediaQuery({ query: '(min-width: 601px) and (max-width: 900px)' });
+  const isDesktop = useMediaQuery({ query: '(min-width: 901px)' });
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -46,9 +49,6 @@ const DashboardCards = () => {
   }
 
   // Define media queries
-  const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
-  const isTablet = useMediaQuery({ query: '(min-width: 601px) and (max-width: 900px)' });
-  const isDesktop = useMediaQuery({ query: '(min-width: 901px)' });
 
   // Determine the number of columns based on screen size
   const columns = isMobile ? 1 : isTablet ? 2 : 3;

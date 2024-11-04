@@ -9,7 +9,9 @@ import { useMediaQuery } from 'react-responsive';
 const Register = () => {
   const navigate = useNavigate();
   const { register, login } = useContext(AuthContext);
-
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+  
   const handleRegister = async (username, first_name, last_name, email, password) => {
     const result = await register(username, first_name, last_name, email, password);
     console.log(result.data);
@@ -32,8 +34,6 @@ const Register = () => {
   });
 
   // Responsive breakpoints
-  const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-  const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
 
   return (
     <div className='bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen flex flex-col items-center justify-center py-8 px-4 sm:px-6 lg:px-8'>
