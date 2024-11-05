@@ -42,7 +42,7 @@ const Dashboard = () => {
         <SideMenu />
 
         {/* Main content area */}
-        <div className={`flex-grow p-5 bg-secondaryBlue rounded-lg m-4 shadow-lg ${isMobile ? 'w-full' : 'w-auto'} ${isTablet ? 'flex-1' : ''}`}>
+        <div className={`flex-grow p-5 bg-secondaryBlue rounded-lg m-4 shadow-lg ${isMobile ? 'max-w-screen' : 'w-auto'} ${isTablet ? 'flex-1' : ''}`}>
           <h1 className='text-2xl text-primaryGold uppercase font-semibold mb-4'>Dashboard</h1>
           <div className='flex justify-between gap-4 mb-6 flex-wrap'>
             <DashboardCards />
