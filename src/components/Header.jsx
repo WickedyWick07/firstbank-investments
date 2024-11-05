@@ -4,7 +4,7 @@ import logoImg from '../assets/images/logoImg.png';
 const Header = () => {
   return (
     <div>
-      <header className='p-5'>
+      <header className='p-5 min-w-screen'>
        
          
           

@@ -38,11 +38,11 @@ const Home = () => {
     }
 
     return (
-        <div className='bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen'>
+        <div className='bg-gradient-to-r from-primaryBlue to-secondBlue min-h-screen min-w-screen flex flex-col'>
             <Header/> 
 
             <section className='text-center'>
-                <h1 className='text-6xl md:text-7xl text-primaryGold uppercase my-6 font-bold'>
+                <h1 className='text-6xl md:text-6xl xs:text-4xl text-primaryGold uppercase my-6 font-bold'>
                     Welcome to InvestSmart First Bank
                 </h1>
                 <p className='text-2xl md:text-3xl text-primaryGold uppercase mb-4'>
