@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import SideMenu from './SideMenu';
+import { useMediaQuery } from 'react-responsive';
+import { FiMenu } from 'react-icons/fi';
+import { IoClose } from 'react-icons/io5';
 
 // Import your chart components
 import AAPLChart from '../../services/AAPLChart';
@@ -16,6 +19,14 @@ import NDXChart from './NDXChart';
 const TopPicks = () => {
   const [loadedCharts, setLoadedCharts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState(false);
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    const isTablet = useMediaQuery({ query: '(max-width: 1024px)' });
+  
+  
+    const toggleSideMenu = () => {
+      setIsSideMenuOpen(!isSideMenuOpen);
+    };
 
   const chartComponents = [
     { symbol: 'AAPL', Component: AAPLChart },
@@ -60,7 +71,30 @@ const TopPicks = () => {
     <div className="min-h-screen bg-gradient-to-r from-primaryBlue to-secondBlue">
       <Header />
       <div className="flex">
-        <SideMenu />
+      {(isMobile || isTablet) && (
+        <button
+          onClick={toggleSideMenu}
+          className="fixed top-4 left-4 z-50 p-2 bg-primaryGold rounded-lg shadow-lg"
+        >
+          {isSideMenuOpen ? (
+            <IoClose className="h-6 w-6" />
+          ) : (
+            <FiMenu className="h-6 w-6" />
+          )}
+        </button>
+      )}
+      <aside
+          className={`
+            ${(isMobile || isTablet)
+              ? 'fixed left-0 top-0 h-full w-64 hover:bg-gradient-to-br from-primaryBlue to-secondBlue bg-primaryBlue bg-opacity-80 shadow-lg z-40'
+              : 'relative w-64'
+            }
+            transition-transform duration-300 ease-in-out
+            ${(isMobile || isTablet) && !isSideMenuOpen ? '-translate-x-full' : 'translate-x-0'}
+          `}
+        >
+          <SideMenu />
+        </aside>
         <main className="flex-1 p-6">
         <section className="flex flex-col py-8 px-6 bg-gradient-to-r from-primaryBlue to-secondBlue rounded-lg shadow-md">
   <p className="text-3xl text-primaryGold font-semibold mb-8 leading-relaxed">
@@ -84,9 +118,9 @@ const TopPicks = () => {
 
 
 
-          <div className="grid grid-cols-3 md:grid-cols-2 gap-6">
-            {loadedCharts.map(({ symbol, Component }) => (
-              <div key={symbol} className="bg-white rounded-lg shadow-md overflow-hidden">
+<div className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-3 md:grid-cols-2'} gap-6`}>
+{loadedCharts.map(({ symbol, Component }) => (
+              <div key={symbol} className="bg-white  rounded-lg shadow-md overflow-hidden">
                 <div className="p-4 bg-gray-50 border-b border-gray-200">
                   <h3 className="text-lg font-semibold text-gray-800">{symbol}</h3>
                 </div>

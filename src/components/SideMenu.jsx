@@ -26,19 +26,11 @@ const SideMenu = () => {
   return (
     <div className='flex'>
       {/* Toggle Button for Mobile */}
-      <button 
-        onClick={toggleMenu} 
-        className='md:hidden p-2 bg-primaryGold text-white rounded'>
-        {isOpen ? (
-          <i className="bi bi-x"></i> // Close icon
-        ) : (
-          <i className="bi bi-list"></i> // Hamburger icon
-        )}
-      </button>
+      
 
       {/* Side Menu */}
-      <nav className={`border-r border-primaryGold px-4 w-64 flex flex-col ${isOpen ? 'block' : 'hidden'} md:block`}>
-        <ul className={`space-y-4 ${isMobile && isOpen ? 'flex flex-row flex-wrap' : 'flex flex-col'}`}>
+      <nav className={`border-r border-primaryGold px-4 w-64 flex flex-col  md:block`}>
+        <ul className={`space-y-4 `}>
           <h1 className='text-center text-2xl uppercase p-2 font-extrabold text-primaryGold'>Menu</h1>
 
           <li onClick={() => handleNavigation('/dashboard')} className='border rounded-full border-primaryGold p-2 m-1 text-center font-semibold text-primaryGold hover:bg-gradient-to-r from-primaryBlue to-secondBlue transition-all uppercase flex items-center justify-center cursor-pointer'>
