@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://firstbank-investsmart-fb01b73cbf8c.herokuapp.com/api/"
+const API_URL = "https://firstbank-investsmart.onrender.com/api/"
 if (!API_URL) {
   console.error('API URL is not defined in environment variables');
 }
